@@ -52,6 +52,12 @@ class Resident extends Model
         return $this->hasMany(HouseholdMember::class);
     }
 
+    /** @return HasMany<Complaint, $this> */
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
     public function isEligibleForActivation(): bool
     {
         return $this->status === 'active' && ! $this->user()->exists();

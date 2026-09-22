@@ -52,6 +52,12 @@ class Tenant extends Model
         return $this->hasMany(House::class);
     }
 
+    /** @return HasMany<Complaint, $this> */
+    public function complaints(): HasMany
+    {
+        return $this->hasMany(Complaint::class);
+    }
+
     public function isActive(): bool
     {
         return $this->status === 'active';

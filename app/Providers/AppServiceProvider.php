@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Listeners\ActivateVerifiedResidentAccount;
 use App\Listeners\UpdateLastLogin;
+use App\Models\Complaint;
 use App\Models\GuestLocationLink;
 use App\Models\House;
 use App\Models\Household;
 use App\Models\Resident;
 use App\Models\Tenant;
+use App\Policies\ComplaintPolicy;
 use App\Policies\GuestLocationLinkPolicy;
 use App\Policies\HouseholdPolicy;
 use App\Policies\HousePolicy;
@@ -62,6 +64,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(House::class, HousePolicy::class);
         Gate::policy(Household::class, HouseholdPolicy::class);
         Gate::policy(GuestLocationLink::class, GuestLocationLinkPolicy::class);
+        Gate::policy(Complaint::class, ComplaintPolicy::class);
         RateLimiter::for('guest-location', fn (Request $request) => Limit::perMinute(60)->by($request->ip()));
         Event::listen(Verified::class, ActivateVerifiedResidentAccount::class);
         Event::listen(Login::class, UpdateLastLogin::class);

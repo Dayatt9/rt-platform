@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivationController;
+use App\Http\Controllers\Admin\ComplaintController;
 use App\Http\Controllers\Admin\GuestLocationLinkController;
 use App\Http\Controllers\Admin\HouseController;
 use App\Http\Controllers\Admin\HouseholdController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Admin\LetterTypeController;
 use App\Http\Controllers\Admin\ResidentActivationController;
 use App\Http\Controllers\Admin\ResidentController;
 use App\Http\Controllers\GuestLocationController;
+use App\Http\Controllers\ResidentComplaintController;
 use App\Http\Controllers\ResidentLetterController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +50,11 @@ Route::middleware(['auth', 'verified', 'account.active', 'role:super_admin,admin
     Route::post('/admin/letters/{letterRequest}/reject', [LetterRequestController::class, 'reject'])->name('admin.letters.reject');
     Route::post('/admin/letters/{letterRequest}/complete', [LetterRequestController::class, 'complete'])->name('admin.letters.complete');
     Route::get('/admin/letters/{letterRequest}/download', [LetterRequestController::class, 'download'])->name('admin.letters.download');
+    Route::get('/admin/complaints', [ComplaintController::class, 'index'])->name('admin.complaints.index');
+    Route::get('/admin/complaints/{complaint}', [ComplaintController::class, 'show'])->name('admin.complaints.show');
+    Route::patch('/admin/complaints/{complaint}/status', [ComplaintController::class, 'updateStatus'])->name('admin.complaints.status');
+    Route::patch('/admin/complaints/{complaint}/response', [ComplaintController::class, 'updateResponse'])->name('admin.complaints.response');
+    Route::get('/admin/complaints/{complaint}/attachment', [ComplaintController::class, 'attachment'])->name('admin.complaints.attachment');
 });
 
 Route::middleware(['auth', 'verified', 'account.active', 'role:resident'])->group(function () {
@@ -56,6 +63,11 @@ Route::middleware(['auth', 'verified', 'account.active', 'role:resident'])->grou
     Route::post('/surat', [ResidentLetterController::class, 'store'])->name('resident.letters.store');
     Route::get('/surat/{letterRequest}', [ResidentLetterController::class, 'show'])->name('resident.letters.show');
     Route::get('/surat/{letterRequest}/download', [ResidentLetterController::class, 'download'])->name('resident.letters.download');
+    Route::get('/pengaduan', [ResidentComplaintController::class, 'index'])->name('resident.complaints.index');
+    Route::get('/pengaduan/buat', [ResidentComplaintController::class, 'create'])->name('resident.complaints.create');
+    Route::post('/pengaduan', [ResidentComplaintController::class, 'store'])->name('resident.complaints.store');
+    Route::get('/pengaduan/{complaint}', [ResidentComplaintController::class, 'show'])->name('resident.complaints.show');
+    Route::get('/pengaduan/{complaint}/lampiran', [ResidentComplaintController::class, 'attachment'])->name('resident.complaints.attachment');
 });
 
 require __DIR__.'/settings.php';
