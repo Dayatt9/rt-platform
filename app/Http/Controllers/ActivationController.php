@@ -37,9 +37,12 @@ class ActivationController extends Controller
 
     public function accountForm(Request $request): View|RedirectResponse
     {
+        /** @var int|string|null $codeId */
+        $codeId = $request->session()->get('activation_code_id');
+        /** @var ActivationCode|null $activationCode */
         $activationCode = ActivationCode::query()
             ->with('resident')
-            ->find($request->session()->get('activation_code_id'));
+            ->find($codeId);
 
         if ($activationCode === null || ! $activationCode->isClaimable() || ! $activationCode->resident->isEligibleForActivation()) {
             $request->session()->forget('activation_code_id');
@@ -58,7 +61,10 @@ class ActivationController extends Controller
             'password' => ['required', 'string', Password::default(), 'confirmed'],
         ]);
 
-        $activationCode = ActivationCode::query()->find($request->session()->get('activation_code_id'));
+        /** @var int|string|null $codeId */
+        $codeId = $request->session()->get('activation_code_id');
+        /** @var ActivationCode|null $activationCode */
+        $activationCode = ActivationCode::query()->find($codeId);
 
         if ($activationCode === null) {
             return to_route('activation.create')

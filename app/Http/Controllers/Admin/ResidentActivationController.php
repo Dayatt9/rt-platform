@@ -7,8 +7,8 @@ use App\Models\ActivationCode;
 use App\Models\Resident;
 use App\Services\ActivationCodeService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 

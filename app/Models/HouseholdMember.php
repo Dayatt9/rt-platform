@@ -15,11 +15,20 @@ class HouseholdMember extends Model
     }
 
     /** @return BelongsTo<Household, $this> */
-    public function household(): BelongsTo { return $this->belongsTo(Household::class); }
+    public function household(): BelongsTo
+    {
+        return $this->belongsTo(Household::class);
+    }
 
     /** @return BelongsTo<Resident, $this> */
-    public function resident(): BelongsTo { return $this->belongsTo(Resident::class); }
+    public function resident(): BelongsTo
+    {
+        return $this->belongsTo(Resident::class);
+    }
 
     /** @return BelongsTo<Tenant, $this> */
-    public function tenant(): BelongsTo { return $this->belongsTo(Tenant::class); }
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

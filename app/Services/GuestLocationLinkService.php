@@ -32,7 +32,9 @@ class GuestLocationLinkService
             ->where('lookup_hash', $this->lookupHash($token))
             ->first();
 
-        if ($link === null || ! Hash::check($token, $link->token_hash)) return null;
+        if ($link === null || ! Hash::check($token, $link->token_hash)) {
+            return null;
+        }
 
         return $link->isUsable()
             && $link->house !== null
@@ -47,7 +49,9 @@ class GuestLocationLinkService
 
     public function revoke(GuestLocationLink $link): void
     {
-        if ($link->revoked_at === null) $link->forceFill(['revoked_at' => now()])->save();
+        if ($link->revoked_at === null) {
+            $link->forceFill(['revoked_at' => now()])->save();
+        }
     }
 
     private function lookupHash(string $token): string

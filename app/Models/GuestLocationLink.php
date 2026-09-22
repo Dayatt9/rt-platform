@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Hidden;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property Carbon $expires_at
+ * @property Carbon|null $revoked_at
+ */
 #[Hidden(['token_hash', 'lookup_hash'])]
 class GuestLocationLink extends Model
 {
-    use HasFactory;
-
     protected $guarded = ['*'];
 
     protected function casts(): array
@@ -20,13 +22,22 @@ class GuestLocationLink extends Model
     }
 
     /** @return BelongsTo<Tenant, $this> */
-    public function tenant(): BelongsTo { return $this->belongsTo(Tenant::class); }
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 
     /** @return BelongsTo<House, $this> */
-    public function house(): BelongsTo { return $this->belongsTo(House::class); }
+    public function house(): BelongsTo
+    {
+        return $this->belongsTo(House::class);
+    }
 
     /** @return BelongsTo<User, $this> */
-    public function creator(): BelongsTo { return $this->belongsTo(User::class, 'created_by'); }
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
     public function isUsable(): bool
     {

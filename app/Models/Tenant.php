@@ -41,10 +41,16 @@ class Tenant extends Model
     }
 
     /** @return HasMany<Household, $this> */
-    public function households(): HasMany { return $this->hasMany(Household::class); }
+    public function households(): HasMany
+    {
+        return $this->hasMany(Household::class);
+    }
 
     /** @return HasMany<House, $this> */
-    public function houses(): HasMany { return $this->hasMany(House::class); }
+    public function houses(): HasMany
+    {
+        return $this->hasMany(House::class);
+    }
 
     public function isActive(): bool
     {

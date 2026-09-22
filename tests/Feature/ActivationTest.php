@@ -7,6 +7,7 @@ use App\Models\Resident;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Services\ActivationCodeService;
+use App\Services\GeneratedActivationCode;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
@@ -205,7 +206,7 @@ class ActivationTest extends TestCase
     }
 
     /**
-     * @return array{Resident, \App\Services\GeneratedActivationCode}
+     * @return array{Resident, GeneratedActivationCode}
      */
     private function generatedActivation(): array
     {

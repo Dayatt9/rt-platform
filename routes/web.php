@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\ActivationController;
-use App\Http\Controllers\Admin\ResidentActivationController;
-use App\Http\Controllers\Admin\ResidentController;
+use App\Http\Controllers\Admin\GuestLocationLinkController;
 use App\Http\Controllers\Admin\HouseController;
 use App\Http\Controllers\Admin\HouseholdController;
 use App\Http\Controllers\Admin\HouseMapController;
-use App\Http\Controllers\Admin\GuestLocationLinkController;
+use App\Http\Controllers\Admin\ResidentActivationController;
+use App\Http\Controllers\Admin\ResidentController;
 use App\Http\Controllers\GuestLocationController;
 use Illuminate\Support\Facades\Route;
 
