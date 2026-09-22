@@ -45,7 +45,7 @@ class UserFactory extends Factory
     public function adminRt(?Tenant $tenant = null): static
     {
         return $this->state(fn () => [
-            'tenant_id' => $tenant?->id ?? Tenant::factory(),
+            'tenant_id' => $tenant->id ?? Tenant::factory(),
             'role' => UserRole::AdminRt,
             'position' => 'ketua_rt',
         ]);
