@@ -9,7 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property int $id
+ * @property int $tenant_id
+ * @property string $nik
+ * @property string $name
+ * @property string $gender
+ * @property Carbon|null $birth_date
+ * @property string|null $phone
+ * @property string $status
+ */
 #[Fillable(['nik', 'name', 'gender', 'birth_date', 'phone', 'status'])]
 class Resident extends Model
 {

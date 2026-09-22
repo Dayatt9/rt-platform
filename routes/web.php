@@ -5,9 +5,12 @@ use App\Http\Controllers\Admin\GuestLocationLinkController;
 use App\Http\Controllers\Admin\HouseController;
 use App\Http\Controllers\Admin\HouseholdController;
 use App\Http\Controllers\Admin\HouseMapController;
+use App\Http\Controllers\Admin\LetterRequestController;
+use App\Http\Controllers\Admin\LetterTypeController;
 use App\Http\Controllers\Admin\ResidentActivationController;
 use App\Http\Controllers\Admin\ResidentController;
 use App\Http\Controllers\GuestLocationController;
+use App\Http\Controllers\ResidentLetterController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login')->name('home');
@@ -38,6 +41,21 @@ Route::middleware(['auth', 'verified', 'account.active', 'role:super_admin,admin
     Route::resource('/admin/households', HouseholdController::class)->names('admin.households')->except('destroy');
     Route::post('/admin/households/{household}/members', [HouseholdController::class, 'addMember'])->name('admin.households.members.store');
     Route::patch('/admin/households/{household}/members/{member}/end', [HouseholdController::class, 'endMember'])->name('admin.households.members.end');
+    Route::resource('/admin/letter-types', LetterTypeController::class)->names('admin.letter-types')->except(['show', 'destroy']);
+    Route::get('/admin/letters', [LetterRequestController::class, 'index'])->name('admin.letters.index');
+    Route::get('/admin/letters/{letterRequest}', [LetterRequestController::class, 'show'])->name('admin.letters.show');
+    Route::post('/admin/letters/{letterRequest}/approve', [LetterRequestController::class, 'approve'])->name('admin.letters.approve');
+    Route::post('/admin/letters/{letterRequest}/reject', [LetterRequestController::class, 'reject'])->name('admin.letters.reject');
+    Route::post('/admin/letters/{letterRequest}/complete', [LetterRequestController::class, 'complete'])->name('admin.letters.complete');
+    Route::get('/admin/letters/{letterRequest}/download', [LetterRequestController::class, 'download'])->name('admin.letters.download');
+});
+
+Route::middleware(['auth', 'verified', 'account.active', 'role:resident'])->group(function () {
+    Route::get('/surat', [ResidentLetterController::class, 'index'])->name('resident.letters.index');
+    Route::get('/surat/buat', [ResidentLetterController::class, 'create'])->name('resident.letters.create');
+    Route::post('/surat', [ResidentLetterController::class, 'store'])->name('resident.letters.store');
+    Route::get('/surat/{letterRequest}', [ResidentLetterController::class, 'show'])->name('resident.letters.show');
+    Route::get('/surat/{letterRequest}/download', [ResidentLetterController::class, 'download'])->name('resident.letters.download');
 });
 
 require __DIR__.'/settings.php';

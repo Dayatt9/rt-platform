@@ -77,7 +77,7 @@
             <div>
                 <div class="px-2 mb-2 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Layanan</div>
                 <div class="space-y-1">
-                    <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-md text-sm font-medium transition-colors">
+                    <a href="{{ route('admin.letters.index') }}" class="flex items-center gap-3 px-3 py-2 @if(request()->routeIs('admin.letters.*') || request()->routeIs('admin.letter-types.*')) bg-teal-700 text-white font-medium @else text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium @endif rounded-md text-sm transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         Surat Administrasi
                     </a>
