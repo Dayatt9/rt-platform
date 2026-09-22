@@ -1,0 +1,6 @@
+@extends('layouts.admin')
+@section('content')
+<div class="max-w-2xl space-y-5"><div class="flex justify-between"><div><h1 class="text-2xl font-bold">{{ $resident->name }}</h1><p class="text-sm text-slate-600">Data warga</p></div><a class="text-sm font-medium text-teal-700" href="{{ route('admin.residents.edit',$resident) }}">Ubah</a></div>@if(session('status'))<p class="rounded border border-green-200 bg-green-50 p-3 text-sm text-green-800">{{ session('status') }}</p>@endif
+<dl class="grid gap-4 rounded-lg border border-slate-200 bg-white p-6 md:grid-cols-2"><div><dt class="text-xs text-slate-500">NIK</dt><dd class="font-mono">•••• •••• •••• {{ substr($resident->nik,-4) }}</dd></div><div><dt class="text-xs text-slate-500">Status</dt><dd><x-status-badge :status="$resident->status" /></dd></div><div><dt class="text-xs text-slate-500">Nomor HP</dt><dd>{{ $resident->phone ? substr($resident->phone,0,4).'••••'.substr($resident->phone,-4) : '—' }}</dd></div><div><dt class="text-xs text-slate-500">Akun</dt><dd>{{ $resident->user ? 'Terhubung' : 'Belum ada akun' }}</dd></div></dl>
+@if(!$resident->user)<a class="inline-block rounded bg-teal-700 px-4 py-2 text-sm font-medium text-white" href="{{ route('admin.residents.activation.show',$resident) }}">Kelola aktivasi akun</a>@endif</div>
+@endsection
